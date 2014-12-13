@@ -3,9 +3,9 @@ include_recipe "apt"
 include_recipe "build-essential"
 include_recipe "git"
 
-software_dir = node[:caffe][:software_dir]
-local_user   = node[:caffe][:local_user]
-local_group  = node[:caffe][:local_group]
+software_dir = node['caffe']['software_dir']
+local_user   = node['caffe']['local_user']
+local_group  = node['caffe']['local_group']
 
 directory software_dir do
   owner local_user
@@ -13,7 +13,7 @@ directory software_dir do
 end
 
 # linux headers
-package "linux-headers-#{node.os_version}"
+package "linux-headers-#{node['os_version']}"
 # https://forums.aws.amazon.com/thread.jspa?messageID=558414
 package "linux-image-generic"
 
@@ -41,7 +41,7 @@ bash 'install-cuda-repo' do
 end  
 package 'cuda'
 
-cudnn_filename = "#{node[:caffe][:cudnn_tarball_name_wo_tgz]}.tgz"
+cudnn_filename = "#{node['caffe']['cudnn_tarball_name_wo_tgz']}.tgz"
 if File.exists? "#{File.Dirname(__FILE__)}/../files/default/cudnn-tarball/#{cudnn_filename}"
   cookbook_file "#{software_dir}/#{cudnn_filename}" do
     source "cudnn-tarball/#{cudnn_filename}"
@@ -51,17 +51,17 @@ if File.exists? "#{File.Dirname(__FILE__)}/../files/default/cudnn-tarball/#{cudn
   end
   execute "tar -zxf #{cudnn_filename}" do
     cwd software_dir
-    not_if { FileTest.exists? "#{software_dir}/#{node[:caffe][:cudnn_tarball_name_wo_tgz]}" }
+    not_if { FileTest.exists? "#{software_dir}/#{node['caffe']['cudnn_tarball_name_wo_tgz']}" }
     user local_user
     group local_group
   end
   execute 'cp cudnn.h /usr/local/include' do
-    cwd "#{software_dir}/#{node[:caffe][:cudnn_tarball_name_wo_tgz]}"
+    cwd "#{software_dir}/#{node['caffe']['cudnn_tarball_name_wo_tgz']}"
     not_if { FileTest.exists? "/usr/local/include/cudnn.h" }
   end
   [ 'libcudnn_static.a', 'libcudnn.so.6.5.18' ].each do |lib|
     execute "cp #{lib} /usr/local/lib" do
-    cwd "#{software_dir}/#{node[:caffe][:cudnn_tarball_name_wo_tgz]}"
+    cwd "#{software_dir}/#{node['caffe']['cudnn_tarball_name_wo_tgz']}"
       not_if { FileTest.exists? "/usr/local/lib/#{lib}" }
     end
   end
