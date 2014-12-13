@@ -42,7 +42,7 @@ end
 package 'cuda'
 
 cudnn_filename = "#{node['caffe']['cudnn_tarball_name_wo_tgz']}.tgz"
-if File.exists? "#{File.Dirname(__FILE__)}/../files/default/cudnn-tarball/#{cudnn_filename}"
+if File.exists? "#{File.dirname(__FILE__)}/../files/default/cudnn-tarball/#{cudnn_filename}"
   cookbook_file "#{software_dir}/#{cudnn_filename}" do
     source "cudnn-tarball/#{cudnn_filename}"
     mode 0644
