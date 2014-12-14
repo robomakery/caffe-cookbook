@@ -39,6 +39,9 @@ bash 'install-cuda-repo' do
   code "dpkg -i #{software_dir}/cuda-repo-ubuntu1404_6.5-14_amd64.deb"
   notifies :run, 'execute[apt-get update]', :immediately
 end  
+execute 'apt-get update' do
+  action :nothing
+end
 package 'cuda'
 
 cudnn_filename = "#{node['caffe']['cudnn_tarball_name_wo_tgz']}.tgz"
