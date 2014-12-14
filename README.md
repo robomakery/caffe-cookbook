@@ -2,7 +2,7 @@
 
 Chef cookbook for installing the Caffe deep learning framework.
 
-It was developed using an AWS g2.2xlarge instance running Ubuntu 14.04.
+It was developed using an AWS g2.2xlarge instance running Ubuntu 14.04 (base Ubuntu AMI used was: [ami-4ae27e22](http://thecloudmarket.com/image/ami-4ae27e22--ubuntu-images-hvm-ssd-ubuntu-trusty-14-04-amd64-server-20141125)).
 
 It installs [CUDA](http://www.nvidia.com/object/cuda_home_new.html), [cuDNN](https://developer.nvidia.com/cuDNN) (see notes below), [Caffe](http://caffe.berkeleyvision.org/), and Caffe's python bindings.
 
