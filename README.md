@@ -1,6 +1,6 @@
 # caffe-cookbook
 
-Chef cookbook for installing the Caffe deep learning framework.
+Chef cookbook for installing the [Caffe deep learning framework](http://caffe.berkeleyvision.org/).
 
 It was developed using an AWS g2.2xlarge instance running Ubuntu 14.04 (base Ubuntu AMI used was: [ami-4ae27e22](http://thecloudmarket.com/image/ami-4ae27e22--ubuntu-images-hvm-ssd-ubuntu-trusty-14-04-amd64-server-20141125)).
 
