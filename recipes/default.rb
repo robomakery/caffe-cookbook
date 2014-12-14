@@ -2,6 +2,7 @@
 include_recipe "apt"
 include_recipe "build-essential"
 include_recipe "git"
+include_recipe "cron"
 
 software_dir = node['caffe']['software_dir']
 local_user   = node['caffe']['local_user']
@@ -106,7 +107,7 @@ end
 # install python requirements
 execute 'install-python-reqs' do
   cwd "#{software_dir}/caffe/python"
-  command "(for req in $(cat requirements.txt); do pip install $req; done) && touch /home/#{local_user}/.caffe-python-reqs-installed"
+  command "(for req in $(cat requirements.txt); do pip install $req; done) && touch /home/#{local_user}/.caffe-python-reqs-installed && chown #{local_user}:#{local_group} /home/#{local_user}/.caffe-python-reqs-installed"
   creates "/home/#{local_user}/.caffe-python-reqs-installed"
 end
 
@@ -137,9 +138,10 @@ end
 
 # fix warning message 'libdc1394 error: Failed to initialize libdc1394' when running make runtest
 # http://stackoverflow.com/a/26028597
-link "/dev/raw1394" do
-  to "/dev/null"
-  link_type :hard
+# need to set this on each boot since the /dev links are cleared after shutdown
+cron_d 'fix-libdc1394-warning' do
+  predefined_value '@reboot'
+  command 'ln -s /dev/null /dev/raw1394'
 end
 
 # set path

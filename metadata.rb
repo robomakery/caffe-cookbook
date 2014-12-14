@@ -9,5 +9,6 @@ supports "ubuntu", "= 14.04"
 
 depends "apt"
 depends "build-essential"
+depends "cron"
 depends "git"
 depends "magic_shell"
