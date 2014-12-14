@@ -40,8 +40,12 @@ bash 'install-cuda-repo' do
   action :nothing
   code "dpkg -i #{software_dir}/cuda-repo-ubuntu1404_6.5-14_amd64.deb"
   notifies :run, 'execute[apt-get update]', :immediately
-end  
-package 'cuda'
+end
+# https://bugs.launchpad.net/ubuntu/+source/nvidia-graphics-drivers-331/+bug/1401390
+# package 'cuda'
+execute 'install-cuda' do
+  command "apt-get -q -y install --no-install-recommends cuda"
+end
 
 cudnn_filename = "#{node['caffe']['cudnn_tarball_name_wo_tgz']}.tgz"
 if File.exists? "#{File.dirname(__FILE__)}/../files/default/cudnn-tarball/#{cudnn_filename}"
