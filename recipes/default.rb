@@ -17,7 +17,7 @@ end
 # linux headers
 package "linux-headers-#{node['os_version']}"
 # https://forums.aws.amazon.com/thread.jspa?messageID=558414
-package "linux-image-generic"
+package "linux-image-#{node['os_version']}"
 
 # caffe dependencies
 %w{ libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev
