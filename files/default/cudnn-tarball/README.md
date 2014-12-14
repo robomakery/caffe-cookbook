@@ -1,3 +1,1 @@
-If you want to build Caffe with CUDNN, then put the tarball from the CUDNN website into this directory.
-
-As of Dec 13, 2014 this file was called: cudnn-6.5-linux-R1.tgz
+This is where you should put the cuDNN tarball.  See the top-level README.md for more info.
