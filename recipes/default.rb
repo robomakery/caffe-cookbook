@@ -1,4 +1,6 @@
 
+execute 'apt-get update'
+
 include_recipe "build-essential"
 include_recipe "git"
 include_recipe "cron"
@@ -11,8 +13,6 @@ directory software_dir do
   owner local_user
   group local_group
 end
-
-execute 'apt-get update'
 
 # linux headers
 package "linux-headers-#{node['os_version']}"
